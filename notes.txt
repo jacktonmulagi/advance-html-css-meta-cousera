@@ -1,0 +1,669 @@
+Grid template area
+Grid areas are a way to group one or more grid cells. The grid template area is an extension of this concept where you can give names to these grid areas. Once you have the names defined, you can address these new grid area items by their names and configure them accordingly. 
+
+The property grid-template-areas is usually placed inside the body tag or any container where the grid needs to be placed, the same way that you would define the rules for the grid. The main difference is, in case of grid-template-areas the values present will be the different names. 
+
+Process
+The process isn’t prescriptive but these are the steps in general:
+
+Define the grid using display property 
+
+Set the height and width of the grid 
+
+Set the grid-template-areas with the appropriate name identifiers
+
+Add the appropriate sizes for the rows inside the grid using grid-template-rows property 
+
+Add the appropriate sizes for the columns inside the grid using grid-template-columns property 
+
+But how exactly do you use these names and where do they come from? The names that you use inside the grid template areas are the HTML tags that you have used. Or, where you need to get more specific, you designate a class name to these tags. Once the names are assigned, you define the properties for each class the same way that you define them conventionally. Let's examine an example.
+
+Example
+HTML Code:
+
+19181713141516678910111212345
+    <header> Header </header> 
+
+    <nav class="nav-bar"> Navigation </nav> 
+
+    <main> Main area </main> 
+
+    <footer> Footer </footer> 
+
+</body> 
+CSS Code:
+
+12345678910111213141516171819202122232425262728293031323334353637383940
+body { 
+
+    display: grid; 
+
+    height: 200px; 
+
+    grid-template-areas: "head head" 
+
+                         "nav  main" 
+
+
+Output:   
+
+Grid-based output presenting "header, navigation, main area, and footer."
+Though there are five sets of rules, logically the CSS code is divided into two sections. The first is where you define the rules for the grid inside the body selector. And second is where you allocate specific rules for the different grid areas. The way these grid areas are distributed is according to how you have defined the names inside the grid-template-areas property. In the example above the relevant code is: 
+
+123
+ grid-template-areas: "head head"
+                         "nav  main"
+                         "footer  footer";
+The ‘head’ is written twice to imply two columns and the rest of the content follows the usual convention. The number of rows will be the number of ‘pairs of quotes’ you have used which in this case is three. Namely  “head head”, “nav main” and “footer footer”. Once you know the number of rows and columns, the values for those will be set by grid-template-rows and grid-template-columns. Since these are three and two respectively here, you need to add that many values. The height simply gives the overall value of the height for the grid. 
+
+Note that the number of times you wrote “header” did not have to be two. You could write more of those and if you align the rest of the grid-names correctly, the height and width of the grid-areas will be distributed proportionately. 
+
+Let’s return to the example. If you keep all other properties the same but you change the grid-template-areas as follows: 
+
+3
+grid-template-areas: "head head head"
+                         "nav  main main"
+                         "footer  footer footer";
+The output will remain the same as you have fixed the value of the third row to “30px”. The example is simple for the sake of clarity, but if you had used relative values, you would’ve seen an observable change in the comparable sizes of nav and main grid-areas. 
+
+Grid-areas are convenient when you have a clear schematic of what you want in a grid. It’s also easier to configure individual areas if you can address them by their names. Let’s say you are designing a resume on your website, you will be able to name the different areas such as ‘Bio’, ‘Education’, ‘Work experience’ and so on. And it’s easier to use these labels when you are defining the rules. Creating a block diagram using pen and paper before starting to work on a grid is always a good idea. 
+
+      
+references: https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout
+https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+https://learncssgrid.com/
+https://web.dev/learn/css/grid/
+
+
+Standard Css selector
+
+1. Universal Selector
+2. Type Selector/Element Selector
+3. Class Selector
+4. ID Selector
+
+other css selectors
+1.Attribute Selector
+example: [type="text"]
+
+
+
+2.Pseudo-class Selector
+example : a:hover
+
+3.Pseudo-element Selector
+
+example : p::first-line
+
+4.Comma Selector
+5.Descendant Selector
+6.Child Selector
+7.Adjacent Sibling Selector
+8.General Sibling Selector
+
+
+
+
+
+All selectors and their specificity
+As you build a website, the complexity of the code might increase to such a point that more than one CSS rule is applied to the same element. Or, you might accidentally add more than one rule over the same element. This results in conflicts as only one rule can be applied to a specific property. For example, the color of a certain p tag can either be blue or white, but not both. CSS engines use something called specificity to resolve these conflicts. Specificity is the ranking or score that helps CSS determine the final rule that will be applied to a given element. 
+
+This reading will help you grasp how the element with the ‘highest’ specificity is selected by CSS. But before you read on, it is important to note that these rules only apply in cases where conflicts arise for the properties. 
+
+Specificity hierarchy
+CSS has a set of rules that it uses to ‘score’ or assign a certain weight to selectors and this creates a specificity hierarchy. Based on the weights, there are four categories in this hierarchy: 
+
+Inline styles 
+
+IDs 
+
+Classes, attributes, and pseudo-classes 
+
+Elements and pseudo-elements 
+
+Inline styles
+Inline styles are attached to the elements within your HTML code like with the ‘style’ attribute. inline styles have the highest specificity. That means that rules that are defined as inline styles will be applied irrespective of other rules. 
+
+For example, take these two rules that create a conflict in color styling for a p tag:
+
+21
+ <p style=“color: white;”> 
+p{color: blue} 
+The p tag will be colored white because it is declared inside the inline tag. 
+
+IDs
+Next in the hierarchy are IDs and by now you know that they are represented by ‘#’.  For example:
+
+#div
+
+Classes, attributes, and pseudo-classes
+Classes, and the attributes inside the selectors, come next with what is called the pseudo-classes that you will soon learn more about. 
+
+For example:
+
+.my-class 
+
+p[“attribute”]
+
+div:hover
+
+Elements and pseudo-elements
+Finally, elements and something you call pseudo-elements have the lowest position in the specificity hierarchy. You will learn more about pseudo-elements later in this lesson.
+
+Calculating scores
+But by now you might wonder how is specificity calculated? 
+
+CSS uses the hierarchical model internally to calculate the specificity of the selectors used on a web page. But often as the size of CSS code increases, developers unavoidably face rule conflicts. In these cases, developers use the specificity hierarchy to calculate the precedence of CSS rules and to control the outcome of their web pages. 
+
+Let’s explore a practical example of how to determine the score of a few selectors. 
+
+#hello {} will be 0100
+
+div {} will be 0001 and
+
+div p.foo {} will be 0012
+
+In the order stated above, the four categories will be assigned values 1000, 100, 10 and 1 with the element selectors having the lowest value of 1. These scores will be calculated respectively for each element present inside the selector. The total score for these elements is then calculated and the one with the highest value has the highest specificity.
+
+Let’s explore a couple of examples for clarity. Take note that the properties and values are not included in these examples to keep the focus on the selectors only. 
+
+Example 1
+3
+p {} 
+div p {}
+div p.foo {}
+p  => 1 element =>  0 0 0 1 => Score: 1
+
+div p => 2 elements => 0 0 0 2 => Score: 2
+
+div p.foo {} => 2 elements and 1 class selector => 0 0 1 2 => Score: 12
+
+The third case has a total of 12 for the p tag and so has the highest specificity. The rules for the other two cases are then overridden and the rules inside the third case are applied. 
+
+Example 2
+p#bar => 1 element & 1 ID =>  0 1 0 1 => Score: 101
+
+p.foo => 1 element & 1 class => 0 0 1 1 => Score: 11
+
+p.p.foo => 1 element & 2 class =>  0 0 2 1 => Score: 21
+
+By now it should be clear that the case containing ID has a much higher score and the rules inside it will be applied. 
+
+Once you learn about the different pseudo-classes, pseudo-elements, and wide range of selectors later in this section, it will be easy to see why understanding specificity is important. 
+
+While the weights assigned from the hierarchical structure help in a systematic approach, there are a few more guidelines and rules that become important especially in cases when the score for the different selectors is the same. Some of these are:
+
+Every selector will have a score and place in the hierarchy
+
+In the case of selectors with equal specificity, the latest or last written rule is the one that will be applied
+
+In general, ID selector should be applied in cases where you need to be certain about a rule 
+
+Universal selectors have zero specificity value
+
+This reading only gave you an overview of specificity, but you should know that it is a much broader topic and also the underlying basis on which CSS engines work. That's what the 'Cascading' in CSS means: the way in which CSS engines evaluate and apply the specificity rules is called ‘cascade’. Cascade is a type of small waterfall that falls in stages down the rocks and that is exactly how CSS behaves. 
+
+Don’t be too worried about applying what you’ve learned now, there are CSS specificity calculators available that can help you with determining the styling outcomes of your pages. 
+
+
+
+
+CSS Pseudo cheat sheet
+Simple selectors
+Selector
+
+Syntax
+
+Example
+
+Element
+
+element
+
+div {
+
+}
+
+Class
+
+.class
+
+.alpha {
+}
+
+ID
+
+#id
+
+#alpha {
+}
+
+Universal
+
+*
+
+* {
+}
+
+Variations of simple selectors
+Elements
+
+Syntax
+
+Example
+
+Description
+
+Two classes
+
+.first-class.second-class
+
+.alpha.beta {
+}
+
+All elements with classes alpha and beta
+
+Element and class
+
+element.class
+
+p.alpha {
+}
+
+All alpha class elements inside <p>
+
+Two elements
+
+element, element
+
+p, div {
+}
+
+All <p> and <div> elements
+
+Two elements
+
+element element
+
+p div {
+}
+
+All <div> elements inside <p>
+
+Descendant selectors/combinators
+Selector
+
+Syntax
+
+Example
+
+Description
+
+Descendant
+
+element element
+
+div p {
+}
+
+All <p> descendants of <div>
+
+Child
+
+element>element
+
+div > p {
+}
+
+All <p> direct descendants of <div>
+
+Adjacent Sibling
+
+element+element
+
+div + p {
+}
+
+<p> element directly after <div>
+
+General Sibling
+
+element~element
+
+div ~ p {
+}
+
+All <p> element iterations after <div>
+
+Attribute selectors
+Selector
+
+Syntax
+
+Example
+
+[attribute]
+
+[href] {
+
+}
+
+Selects all elements with a href attribute
+
+[attribute=value]
+
+[lang="fr"] {
+
+}
+
+Selects all elements with lang attribute that has a value of "fr"
+
+[attribute~=value]
+
+[input~=hello] {
+
+}
+
+Elements with input attribute containing the whitespace separated substring "hello"
+
+[attribute|=value]
+
+[lang|=en] {
+
+}
+
+Elements with lang attribute value equal to "en" or "en-"(en hyphen)
+
+[attribute^=value]
+
+a[href^="https"] {
+
+}
+
+Every <a> element with href attribute value begins with "https"
+
+[attribute$=value]
+
+a[href$=".docx"] {
+
+}
+
+Every <a> element with href attribute value ends with ".docx"
+
+[attribute*=value]
+
+a[href*="meta"] {
+
+}
+
+Every <a> element with href attribute value has substring "meta"
+
+
+Pseudo-class
+
+Example
+
+Description of selection
+
+:active
+
+a:active {
+}
+
+All active links 
+
+:checked
+
+input:checked {
+}
+
+All the checked <input> elements
+
+:default
+
+input:default {
+}
+
+All default <input> elements
+
+:disabled
+
+input:disabled {
+}
+
+All disabled <input> elements
+
+:empty
+
+div:empty {
+}
+
+All the <div> elements with no children
+
+:enabled
+
+input:enabled {
+}
+
+All the enabled <input> elements
+
+:first-child
+
+p:first-child {
+}
+
+All the <p> elements who are the first child of a parent element
+
+:first-of-type
+
+p:first-of-type {
+}
+
+All the <p> element who are the first <p> element of a parent element
+
+:focus
+
+input:focus {
+}
+
+Input element under focus
+
+:fullscreen
+
+:fullscreen {
+}
+
+The element in full-screen mode
+
+:hover
+
+p:hover {
+}
+
+Action effect on mouse hover
+
+:invalid
+
+input:invalid {
+}
+
+Input elements with an invalid value
+
+:last-child
+
+p:last-child {
+}
+
+All the <p> elements who are the last child of a parent element
+
+:last-of-type
+
+p:last-of-type {
+}
+
+All the <p> elements who are the last <p> element of a parent element
+
+:link
+
+a:link {
+}
+
+All unvisited links
+
+:not(selector)
+
+:not(div) {
+}
+
+All the elements that are not a <div> element
+
+:nth-child(n)
+
+div:nth-child(3) {
+}
+
+All the <p> elements that are the third child of a parent element
+
+:nth-last-child(n)
+
+div:nth-last-child(3) {
+}
+
+All the <div> elements which are the third child of a parent element, counting from last child element
+
+:nth-last-of-type(n)
+
+p:nth-last-of-type(2) {
+}
+
+The second sibling from the last child of a parent element.
+
+:nth-of-type(n)
+
+p:nth-of-type(2) {
+}
+
+The second sibling of a parent element.
+
+:only-of-type
+
+p:only-of-type {
+}
+
+All the <p> elements which are only <p> elements inside its parent
+
+:only-child
+
+p:only-child {
+}
+
+All the <p> elements which are only child of a parent element
+
+:optional
+
+input:optional {
+}
+
+The input elements with no "required" attribute
+
+:required
+
+input:required {
+}
+
+Selects input elements with the "required" attribute specified
+
+:root
+
+:root {
+}
+
+The Root element of document
+
+::selection
+
+::selection {
+}
+
+The portion of an element that is selected by a user
+
+:valid
+
+input:valid {
+}
+
+All the input elements with a valid value
+
+:visited
+
+a:visited {
+}
+
+Selects all visited links
+
+Pseudo-element selectors
+Syntax
+
+Example
+
+Description
+
+::after
+
+p::after {
+}
+
+Inserts content after content of <p> element
+
+::before
+
+p::before {
+}
+
+Inserts content before content of <p> element
+
+::first-letter
+
+p::first-letter {
+}
+
+Selects first letter of every <p> element
+
+::first-line
+
+p::first-line {
+}
+
+Selects first line of every <p> element
+
+::placeholder
+
+input::placeholder {
+}
+
+Selects input elements with "placeholder" attribute specified
+
+::marker
+
+::marker {
+}
+
+Selects markers in a list
+
+
+
+https://www.geeksforgeeks.org/10-css-selectors-every-developer-should-know/
+
+
+
+https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Combinators
+
+
+
+https://www.w3schools.com/cssref/css_selectors.php
+
+
+https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes
+
+
+https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements
